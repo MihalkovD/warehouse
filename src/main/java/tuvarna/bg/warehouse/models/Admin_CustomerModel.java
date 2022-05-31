@@ -3,14 +3,17 @@ package tuvarna.bg.warehouse.models;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Admin_CustomerPOJOTable {
+import java.sql.Connection;
+import java.sql.Statement;
+
+public class Admin_CustomerModel {
 	
 	public  SimpleIntegerProperty customerID = new SimpleIntegerProperty();
 	   public  SimpleStringProperty customerFName= new SimpleStringProperty();
 	   public  SimpleStringProperty customerLName= new SimpleStringProperty();
 	   public  SimpleStringProperty customerAddress= new SimpleStringProperty();
 
-    public Admin_CustomerPOJOTable() {
+    public Admin_CustomerModel() {
     }
 
 	public int getCustomerID() {
@@ -45,44 +48,22 @@ public class Admin_CustomerPOJOTable {
 		this.customerAddress = customerAddress;
 	}
 
-           
-//    public AdminPOJOTable(int adminID, String FName,String LName,String city ) {
-//        this.adminID = new SimpleIntegerProperty(adminID);
-//        this.FName = new SimpleStringProperty(FName);
-//        this.LName = new SimpleStringProperty(LName);
-//        this.city = new SimpleStringProperty(city);
-//        
-//    }
-    
-//    public void setAdminId(Integer adminID) {
-//        this.adminID.set(adminID);
-//    }
-//    public void setAdminFName(String adminFname) {
-//        this.FName.set(adminFname);
-//    }
-//    public void setAdminLName(String adminLname) {
-//        this.LName.set(adminLname);
-//    }
-//    public void setAdminCity(String city) {
-//        this.city.set(city);
-/*//    }
-    public int getAdminID() {
-        return adminID.getValue();
-    }
 
-    public String getFName() {
-        return FName.getValue();
-    }
+	Connector connector = new Connector();
+	Connection conn = connector.connect();
+	private Statement statement = null;
 
-    public String getLName() {
-        return LName.getValue();
-    }
+	public void createCustomerTable() {
+		try {
 
-    public String getCity() {
-        return city.getValue();
-    }*/
-    
-    
+			Statement st = conn.createStatement();
+			String sql = "CREATE TABLE customer (customerId int NOT NULL AUTO_INCREMENT, customerFirstName VARCHAR(255), customerLastName VARCHAR(255),customerUserName VARCHAR(255), customerPassword VARCHAR(255),customerEmailId VARCHAR(255),customerAddress VARCHAR(255), PRIMARY KEY(customerId))";
+			st.executeUpdate(sql);
+			System.out.println("Created customer table in given database...");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    	}
+}
 
