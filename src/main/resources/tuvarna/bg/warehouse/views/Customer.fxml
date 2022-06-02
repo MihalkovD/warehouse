@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuvarna.bg.warehouse.controllers.CustomerController">
+   <children>
+      <HBox prefHeight="500.0" prefWidth="750.0">
+         <children>
+            <VBox prefHeight="500.0" prefWidth="750.0">
+               <children>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0">
+                     <children>
+                        <Separator layoutX="9.0" layoutY="60.0" prefHeight="4.0" prefWidth="732.0" />
+                        <Text fill="#ff000d" layoutX="21.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer" wrappingWidth="228.1962890625">
+                           <font>
+                              <Font name="Tahoma" size="29.0" />
+                           </font>
+                        </Text>
+                        <AnchorPane layoutX="38.0" layoutY="135.0" prefHeight="250.0" prefWidth="674.0">
+                           <children>
+                              <GridPane fx:id="CustomerInformationGrid" layoutX="58.0" layoutY="89.0" prefHeight="213.0" prefWidth="332.0" visible="false">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="33.0" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="38.0" minHeight="8.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="42.0" minHeight="8.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="54.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text fill="#673ab7" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#673ab7" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#673ab7" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#673ab7" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#673ab7" strokeType="OUTSIDE" strokeWidth="0.0" text="User name" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#673ab7" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Label fx:id="cutomerFNLabel" prefHeight="35.0" prefWidth="161.0" GridPane.columnIndex="1" />
+                                    <Label fx:id="cutomerLNLabel" prefHeight="33.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="cutomerIdLabel" prefHeight="35.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="cutomerEmailLabel" prefHeight="35.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="cutomerUserNameLabel" prefHeight="35.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="customerAddressLabel" prefHeight="35.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                              <Text fill="#ff000d" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Information: ">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Label fx:id="contactAdminLabel" layoutX="45.0" layoutY="318.0" prefHeight="27.0" prefWidth="425.0" text="Contact the Admin to make any Changes on your Profile!!" textFill="#d30000" visible="false">
+                                 <font>
+                                    <Font name="Monotype Corsiva" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="viewSelfDetails" layoutX="454.0" layoutY="16.0" mnemonicParsing="false" onAction="#viewSelfDetailsOnClick" prefHeight="31.0" prefWidth="204.0" style="-fx-background-color: #2196F3;" text="View Self Details" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <Button fx:id="logout" layoutX="593.0" layoutY="21.0" mnemonicParsing="false" onAction="#setLogoutButtonClick" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #d33030;" text="Logout" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="trackOrder" layoutX="33.0" layoutY="81.0" mnemonicParsing="false" onAction="#trackOrdersOnclick" prefHeight="31.0" prefWidth="204.0" style="-fx-background-color: #2196F3;" text="Track Order" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="placeorders" layoutX="283.0" layoutY="81.0" mnemonicParsing="false" onAction="#placeOrdersOnclick" prefHeight="31.0" prefWidth="204.0" style="-fx-background-color: #2196F3;" text="Place Order" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="AvailableProducts" layoutX="516.0" layoutY="81.0" mnemonicParsing="false" onAction="#ViewAvailableProductsclick" prefHeight="31.0" prefWidth="204.0" style="-fx-background-color: #2196F3;" text="View Available Products" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

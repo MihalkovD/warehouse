@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import tuvarna.bg.warehouse.models.AdminPOJOTable;
+import tuvarna.bg.warehouse.models.AdminModel;
 import tuvarna.bg.warehouse.models.Connector;
 
 import java.io.IOException;
@@ -47,16 +47,16 @@ public class AddAdminController implements Initializable {
     private TextField addAdmintfCity;
 
     @FXML
-    private TableView<AdminPOJOTable> adminDetailsTableView;
+    private TableView<AdminModel> adminDetailsTableView;
 
     @FXML
-    TableColumn<AdminPOJOTable, Integer> admindetailsId;
+    TableColumn<AdminModel, Integer> admindetailsId;
     @FXML
-    TableColumn<AdminPOJOTable, String> admindetailsFname;
+    TableColumn<AdminModel, String> admindetailsFname;
     @FXML
-    TableColumn<AdminPOJOTable, String> admindetailsLname;
+    TableColumn<AdminModel, String> admindetailsLname;
     @FXML
-    TableColumn<AdminPOJOTable, String> admindetailscity;
+    TableColumn<AdminModel, String> admindetailscity;
 
     @FXML
     private Button save;
@@ -208,7 +208,7 @@ public class AddAdminController implements Initializable {
             TablePosition pos = adminDetailsTableView.getSelectionModel().getSelectedCells().get(0);
             int row = pos.getRow();
 
-            AdminPOJOTable item = adminDetailsTableView.getItems().get(row);
+            AdminModel item = adminDetailsTableView.getItems().get(row);
             int adminID = item.getAdminID();
             //System.out.println("admin id: " + adminID);
             connection = conn.connect();
@@ -286,7 +286,7 @@ public class AddAdminController implements Initializable {
             try {
                 TablePosition pos = adminDetailsTableView.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
-                AdminPOJOTable item = adminDetailsTableView.getItems().get(row);
+                AdminModel item = adminDetailsTableView.getItems().get(row);
                 int adminID = item.getAdminID();
                 //System.out.println("admin id: " + adminID);
                 connection = conn.connect();
@@ -349,10 +349,10 @@ public class AddAdminController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        admindetailsId.setCellValueFactory(new PropertyValueFactory<AdminPOJOTable, Integer>("adminID"));
-        admindetailsFname.setCellValueFactory(new PropertyValueFactory<AdminPOJOTable, String>("FName"));
-        admindetailsLname.setCellValueFactory(new PropertyValueFactory<AdminPOJOTable, String>("LName"));
-        admindetailscity.setCellValueFactory(new PropertyValueFactory<AdminPOJOTable, String>("city"));
+        admindetailsId.setCellValueFactory(new PropertyValueFactory<AdminModel, Integer>("adminID"));
+        admindetailsFname.setCellValueFactory(new PropertyValueFactory<AdminModel, String>("FName"));
+        admindetailsLname.setCellValueFactory(new PropertyValueFactory<AdminModel, String>("LName"));
+        admindetailscity.setCellValueFactory(new PropertyValueFactory<AdminModel, String>("city"));
         try {
             buildData();
         } catch (Exception e) {
@@ -360,7 +360,7 @@ public class AddAdminController implements Initializable {
         }
 
     }
-    private ObservableList<AdminPOJOTable> data;
+    private ObservableList<AdminModel> data;
 
     public void buildData() {
         try {
@@ -373,7 +373,7 @@ public class AddAdminController implements Initializable {
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                AdminPOJOTable cm = new AdminPOJOTable();
+                AdminModel cm = new AdminModel();
                 //System.out.println("rs id"+rs.getInt("adminId"));
                 cm.adminID.set(rs.getInt("adminId"));
                 cm.FName.set(rs.getString("adminFirstName"));

@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import tuvarna.bg.warehouse.models.Admin_CustomerPOJOTable;
+import tuvarna.bg.warehouse.models.Admin_CustomerModel;
 import tuvarna.bg.warehouse.models.Connector;
 
 import java.io.IOException;
@@ -49,16 +49,16 @@ public class Admin_CustomerController implements Initializable {
     private TextField NewCustomertfAddress;
 
     @FXML
-    private TableView<Admin_CustomerPOJOTable> NewCustomerDetailsTableView;
+    private TableView<Admin_CustomerModel> NewCustomerDetailsTableView;
 
     @FXML
-    TableColumn<Admin_CustomerPOJOTable, Integer> CustomerDetailsId;
+    TableColumn<Admin_CustomerModel, Integer> CustomerDetailsId;
     @FXML
-    TableColumn<Admin_CustomerPOJOTable, String> CustomerDetailsFname;
+    TableColumn<Admin_CustomerModel, String> CustomerDetailsFname;
     @FXML
-    TableColumn<Admin_CustomerPOJOTable, String> CustomerDetailsLname;
+    TableColumn<Admin_CustomerModel, String> CustomerDetailsLname;
     @FXML
-    TableColumn<Admin_CustomerPOJOTable, String> CustomerDetailsAddress;
+    TableColumn<Admin_CustomerModel, String> CustomerDetailsAddress;
 
    @FXML
     private Button NewCustomersave;
@@ -210,7 +210,7 @@ public class Admin_CustomerController implements Initializable {
             TablePosition pos = NewCustomerDetailsTableView.getSelectionModel().getSelectedCells().get(0);
             int row = pos.getRow();
 
-            Admin_CustomerPOJOTable item = NewCustomerDetailsTableView.getItems().get(row);
+            Admin_CustomerModel item = NewCustomerDetailsTableView.getItems().get(row);
             int customerID = item.getCustomerID();
             
             connection = conn.connect();
@@ -287,7 +287,7 @@ public class Admin_CustomerController implements Initializable {
             try {
                 TablePosition pos = NewCustomerDetailsTableView.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
-                Admin_CustomerPOJOTable item = NewCustomerDetailsTableView.getItems().get(row);
+                Admin_CustomerModel item = NewCustomerDetailsTableView.getItems().get(row);
                 int gCustomerID = item.getCustomerID();
                 //System.out.println("admin id: " + adminID);
                 connection = conn.connect();
@@ -350,10 +350,10 @@ public class Admin_CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	CustomerDetailsId.setCellValueFactory(new PropertyValueFactory<Admin_CustomerPOJOTable, Integer>("customerID"));
-    	CustomerDetailsFname.setCellValueFactory(new PropertyValueFactory<Admin_CustomerPOJOTable, String>("customerFName"));
-    	CustomerDetailsLname.setCellValueFactory(new PropertyValueFactory<Admin_CustomerPOJOTable, String>("customerLName"));
-    	CustomerDetailsAddress.setCellValueFactory(new PropertyValueFactory<Admin_CustomerPOJOTable, String>("customerAddress"));
+    	CustomerDetailsId.setCellValueFactory(new PropertyValueFactory<Admin_CustomerModel, Integer>("customerID"));
+    	CustomerDetailsFname.setCellValueFactory(new PropertyValueFactory<Admin_CustomerModel, String>("customerFName"));
+    	CustomerDetailsLname.setCellValueFactory(new PropertyValueFactory<Admin_CustomerModel, String>("customerLName"));
+    	CustomerDetailsAddress.setCellValueFactory(new PropertyValueFactory<Admin_CustomerModel, String>("customerAddress"));
         try {
             buildData();
         } catch (Exception e) {
@@ -361,7 +361,7 @@ public class Admin_CustomerController implements Initializable {
         }
 
     }
-    private ObservableList<Admin_CustomerPOJOTable> data;
+    private ObservableList<Admin_CustomerModel> data;
 
     public void buildData() {
         try {
@@ -374,7 +374,7 @@ public class Admin_CustomerController implements Initializable {
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-            	Admin_CustomerPOJOTable cm = new Admin_CustomerPOJOTable();
+            	Admin_CustomerModel cm = new Admin_CustomerModel();
                 //System.out.println("rs id"+rs.getInt("adminId"));
             	cm.customerID.set(rs.getInt("customerId"));
                 cm.customerFName.set(rs.getString("customerFirstName"));

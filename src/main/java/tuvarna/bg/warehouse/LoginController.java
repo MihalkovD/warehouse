@@ -48,8 +48,8 @@ public class LoginController {
                     if (isValidCredentials(userType, userName, password, "Email")) {
                         try {
                             sessionUser = userName;
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/Admin.fxml"));
-                            Parent adminParent = FXMLLoader.load(getClass().getResource("views/Admin.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tuvarna/bg/warehouse/views/Admin.fxml"));
+                            Parent adminParent = FXMLLoader.load(getClass().getResource("/tuvarna/bg/warehouse/views/Admin.fxml"));
                             Scene adminScene = new Scene(adminParent);
                             Stage adminStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             //adminNode = (Node) event.getSource();
@@ -72,8 +72,8 @@ public class LoginController {
                     if (isValidCredentials(userType, userName, password, "Email")) {
                         try {
                             sessionUser = userName;
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EmployeeLogin.fxml"));
-                            Parent adminParent = FXMLLoader.load(getClass().getResource("/views/EmployeeLogin.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tuvarna/bg/warehouse/views/EmployeeLogin.fxml"));
+                            Parent adminParent = FXMLLoader.load(getClass().getResource("/tuvarna/bg/warehouse/views/EmployeeLogin.fxml"));
                             Scene adminScene = new Scene(adminParent);
                             Stage adminStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             //adminNode = (Node) event.getSource();
@@ -96,8 +96,8 @@ public class LoginController {
                     if (isValidCredentials(userType, userName, password, "Email")) {
                         try {
                             sessionUser = userName;
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ManagerLogin.fxml"));
-                            Parent adminParent = FXMLLoader.load(getClass().getResource("/views/ManagerLogin.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tuvarna/bg/warehouse/views/ManagerLogin.fxml"));
+                            Parent adminParent = FXMLLoader.load(getClass().getResource("/tuvarna/bg/warehouse/views/ManagerLogin.fxml"));
                             Scene adminScene = new Scene(adminParent);
                             Stage adminStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             //adminNode = (Node) event.getSource();
@@ -126,8 +126,8 @@ public class LoginController {
                     if (isValidCredentials(userType, userName, password, "Email")) {
                         try {
                             sessionUser = userName;
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Customer.fxml"));
-                            Parent adminParent = FXMLLoader.load(getClass().getResource("/views/Customer.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tuvarna/bg/warehouse/views/Customer.fxml"));
+                            Parent adminParent = FXMLLoader.load(getClass().getResource("/tuvarna/bg/warehouse/views/Customer.fxml"));
                             Scene adminScene = new Scene(adminParent);
                             Stage adminStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             //adminNode = (Node) event.getSource();
@@ -149,42 +149,9 @@ public class LoginController {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    		}
-                             
-                    break;
-                case "Transporter":
-                    userType="Transporter";
-                    if (isValidCredentials(userType, userName, password, "Email")) {
-                        try {
-                            sessionUser = userName;
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/TransporterLogin.fxml"));
-                            Parent adminParent = FXMLLoader.load(getClass().getResource("/views/TransporterLogin.fxml"));
-                            Scene adminScene = new Scene(adminParent);
-                            Stage adminStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            //adminNode = (Node) event.getSource();
+                    }
+                break;
 
-                            adminStage.hide();
-                            adminStage.setScene(adminScene);
-                            adminStage.setTitle("Transporter Panel");
-                            adminStage.show();
-                            
-                           //AdminController controller = loader.<AdminController>getController();
-                            //controller.adminNode = this.adminNode;
-                            //controller.sessionUser = this.sessionUser;
-                            
-                           CustomerController controller = loader.<CustomerController>getController();
-                           // controller.adminNode = this.adminNode;
-                            controller.sessionUser = this.sessionUser;
-                            //System.out.println("LoginC"+sessionUser);
-                            
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    		}
-                    
-                    
-                    
-                    
             }
         }
     }

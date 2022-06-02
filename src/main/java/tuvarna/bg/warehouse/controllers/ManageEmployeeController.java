@@ -19,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tuvarna.bg.warehouse.models.Connector;
-import tuvarna.bg.warehouse.models.Manager_Model;
+import tuvarna.bg.warehouse.models.EmployeeModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,44 +32,47 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Admin_ManageManagerController implements Initializable {
+
+public class ManageEmployeeController implements Initializable {
 
     @FXML
-    private TextField ManagerFName;
+    private TextField employeeFName;
     @FXML
-    private TextField ManagerLName;
+    private TextField employeeLName;
     @FXML
-    private TextField ManagerId;
+    private TextField employeeId;
     @FXML
-    private TextField ManagerEmailId;
+    private TextField employeeEmailId;
     @FXML
-    private TextField ManagerPassword;
+    private TextField employeePassword;
     @FXML
-    private TextField ManagerUserName;
+    private TextField employeeUserName;
     @FXML
-    private TextField ManagerCity;
+    private TextField employeeCity;
     @FXML
-    private ChoiceBox ManagerDeptBox;
+    private ChoiceBox employeeDeptBox;
+    @FXML
+    private ChoiceBox employeeManagerBox;
+    @FXML
+    private Label employeeLabel;
+
+    @FXML
+    private Button backToManagerButton, logout, viewEmployeeButton, editEmployeeButton, deleteEmployeeButton, refreshEmployeeButton,
+            employeeCancelButton, saveChangesButton, saveEmployeeButton;
+
+    @FXML
+    private TableView<EmployeeModel> employeeDetailsTable;
     
     @FXML
-    private Label ManagerLabel;
-
+    TableColumn<EmployeeModel, Integer> empidDetail;
     @FXML
-    private Button backToAdminButton, logout, viewManagerButton, editManagerButton, deleteManagerButton, refreshManagerButton,
-    managerCancelButton, saveChangesButton, savemanagerButton;
-
+    TableColumn<EmployeeModel, String> fnameDetail;
     @FXML
-    private TableView<Manager_Model> managerDetailsTable;
-    
+    TableColumn<EmployeeModel, String> lnameDetail;
     @FXML
-    TableColumn<Manager_Model, Integer> mngidDetailtable;
+    TableColumn<EmployeeModel, String> deptDetail;
     @FXML
-    TableColumn<Manager_Model, String> fnameDetailtable;
-    @FXML
-    TableColumn<Manager_Model, String> lnameDetailtable;
-    @FXML
-    TableColumn<Manager_Model, String> deptDetailtable;
-        
+    TableColumn<EmployeeModel, String> managerDetail;
     
     public static String sessionUser;
     private Connector conn = new Connector();
@@ -79,39 +82,39 @@ public class Admin_ManageManagerController implements Initializable {
 
     @FXML
     private void setAllFieldDisableOnClick() {
-    	ManagerFName.setDisable(true);
-    	ManagerLName.setDisable(true);
-    	ManagerId.setDisable(true);
-    	ManagerEmailId.setDisable(true);
-    	ManagerPassword.setDisable(true);
-    	ManagerUserName.setDisable(true);
-    	ManagerCity.setDisable(true);
-    	ManagerDeptBox.setDisable(true);
-        
+        employeeFName.setDisable(true);
+        employeeLName.setDisable(true);
+        employeeId.setDisable(true);
+        employeeEmailId.setDisable(true);
+        employeePassword.setDisable(true);
+        employeeUserName.setDisable(true);
+        employeeCity.setDisable(true);
+        employeeDeptBox.setDisable(true);
+        employeeManagerBox.setDisable(true);
     }
 
     @FXML
     private void setAllFieldEnableOnClick() {
-    	ManagerFName.setDisable(false);
-    	ManagerLName.setDisable(false);
-        //ManagerId.setDisable(false);
-    	ManagerEmailId.setDisable(false);
-    	ManagerPassword.setDisable(false);
-    	ManagerUserName.setDisable(false);
-    	ManagerCity.setDisable(false);
-    	ManagerDeptBox.setDisable(false);
-        
+        employeeFName.setDisable(false);
+        employeeLName.setDisable(false);
+        //employeeId.setDisable(false);
+        employeeEmailId.setDisable(false);
+        employeePassword.setDisable(false);
+        employeeUserName.setDisable(false);
+        employeeCity.setDisable(false);
+        employeeDeptBox.setDisable(false);
+        employeeManagerBox.setDisable(false);
     }
 
     @FXML
     private void setAllFieldClearOnClick() {
-    	ManagerFName.clear();
-    	ManagerLName.clear();
-    	ManagerId.clear();
-    	ManagerEmailId.clear();
-    	ManagerPassword.clear();
-    	ManagerUserName.clear();
-    	ManagerCity.clear();
+        employeeFName.clear();
+        employeeLName.clear();
+        employeeId.clear();
+        employeeEmailId.clear();
+        employeePassword.clear();
+        employeeUserName.clear();
+        employeeCity.clear();
 
     }
 
@@ -119,34 +122,34 @@ public class Admin_ManageManagerController implements Initializable {
     private void employeeCancelButtonOnClick(Event event) {
         //setAllFieldDisableOnClick();
         setAllFieldClearOnClick();
-        ManagerLabel.setText("");
+        employeeLabel.setText("");
 
     }
 
     @FXML
-    private void backToAdminPanelOnClick(Event event) {
+    private void backToManagerButtonOnClick(Event event) {
         try {
             FXMLLoader fxload = new FXMLLoader();
-            fxload.setLocation(getClass().getResource("/tuvarna/bg/warehouse/views/Admin.fxml"));
+            fxload.setLocation(getClass().getResource("/tuvarna/bg/warehouse/views/ManagerLogin.fxml"));
             fxload.load();
             Parent parent = fxload.getRoot();
             ((Node) event.getSource()).getScene().getWindow().hide();
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
-            stage.setTitle("Admin Panel");
+            stage.setTitle("Manager Panel");
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(Admin_CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
     public boolean checkFieldsEmpty() {
-        if (ManagerFName.getText().equals("") || ManagerLName.getText().equals("") || ManagerEmailId.getText().equals("")
-                || ManagerPassword.getText().equals("") || ManagerUserName.getText().equals("") || ManagerCity.getText().equals("") ||
-                ManagerDeptBox.getValue().toString().trim().equals(null)) {
+        if (employeeFName.getText().equals("") || employeeLName.getText().equals("") || employeeEmailId.getText().equals("")
+                || employeePassword.getText().equals("") || employeeUserName.getText().equals("") || employeeCity.getText().equals("") ||
+                employeeDeptBox.getValue().toString().trim().equals(null)|| employeeManagerBox.getValue().toString().trim().equals(null)) {
             //save.setDisable(true);
-        	ManagerLabel.setTextFill(Color.web("red"));
-        	ManagerLabel.setText("Please enter all values!");
+            employeeLabel.setTextFill(Color.web("red"));
+            employeeLabel.setText("Please enter all values!");
 
             return true;
         } else {
@@ -156,7 +159,7 @@ public class Admin_ManageManagerController implements Initializable {
     
     private static int count;
     @FXML
-    private void saveManagerButtonOnClick(Event event) {
+    private void saveEmployeeButtonOnClick(Event event) {
         setAllFieldEnableOnClick();
         try {
 //            System.out.println("dept:"+employeeDeptBox.getValue().toString().trim());
@@ -168,17 +171,17 @@ public class Admin_ManageManagerController implements Initializable {
                 count = resultSet.getInt(1);
             }
 
-            ManagerId.setText(String.valueOf(count + 1));
+            employeeId.setText(String.valueOf(count + 1));
             if (checkFieldsEmpty()) {
 
                 return;
             } else {
                 //save.setDisable(false);
-                String sqlQuery = "insert into manager values (" + ManagerId.getText() + " , '" + ManagerFName.getText() + "','" + ManagerLName.getText() + "','" + ManagerUserName.getText() + "','" + ManagerPassword.getText() + "','" + ManagerEmailId.getText() + "','" + ManagerCity.getText() + "','" + ManagerDeptBox.getValue().toString().trim() + "')";
+                String sqlQuery = "insert into employee values (" + employeeId.getText() + " , '" + employeeFName.getText() + "','" + employeeLName.getText() + "','" + employeeUserName.getText() + "','" + employeePassword.getText() + "','" + employeeEmailId.getText() + "','" + employeeCity.getText() + "','" + employeeDeptBox.getValue().toString().trim() + "','" +employeeManagerBox.getValue().toString().trim() + "')";
                 //System.out.println(sqlQuery);
                 statement.executeUpdate(sqlQuery);
-                ManagerLabel.setTextFill(Color.web("green"));
-                ManagerLabel.setText("Manager Saved to Database");
+                employeeLabel.setTextFill(Color.web("green"));
+                employeeLabel.setText("Employee Saved to Database");
                 setAllFieldClearOnClick();
                 setAllFieldDisableOnClick();
                 refreshEmployeeButtonOnClick(event);
@@ -188,8 +191,8 @@ public class Admin_ManageManagerController implements Initializable {
             resultSet.close();
 
         } catch (SQLException e) {
-        	ManagerLabel.setText("Manager Not Saved to Database");
-            System.out.println("Values are not inserted in manager table after save button");
+            employeeLabel.setText("Employee Not Saved to Database");
+            System.out.println("Values are not inserted in employee table after save button");
             e.printStackTrace();
         }
     }
@@ -207,15 +210,15 @@ public class Admin_ManageManagerController implements Initializable {
         stage.show();
     }
 
-    public void set() 
-         { try {
+    public void set() {
+        try {
             //System.out.println("manage emp:"+sessionUser);
-        	ManagerDeptBox.getItems().add("Inventory");
-        	ManagerDeptBox.getItems().add("Production");
-        	ManagerDeptBox.getItems().add("Supply");
-        	ManagerDeptBox.getItems().add("Marketing");}
+            employeeDeptBox.getItems().add("Inventory");
+            employeeDeptBox.getItems().add("Production");
+            employeeDeptBox.getItems().add("Supply");
+            employeeDeptBox.getItems().add("Marketing");
 
-           /* connection = conn.connect();
+            connection = conn.connect();
             statement = connection.createStatement();
             String sql = "Select managerFirstName,managerLastName from manager;";
             rslt = statement.executeQuery(sql);
@@ -226,18 +229,11 @@ public class Admin_ManageManagerController implements Initializable {
             }
             connection.close();
             statement.close();
-            rslt.close();*/
-         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(" Values not set");
+            rslt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageEmployeeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-         }
-         
-         /*(SQLException ex) {
-            Logger.getLogger(Admin_ManageManagerController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    
+    }
     @FXML
     private void refreshEmployeeButtonOnClick(Event event) {
         try {
@@ -248,8 +244,8 @@ public class Admin_ManageManagerController implements Initializable {
     }
     
     public boolean ifRowSelected() {
-        if (managerDetailsTable.getSelectionModel().getSelectedItems().size() == 0) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You need to select at least one row!", ButtonType.OK);
+        if (employeeDetailsTable.getSelectionModel().getSelectedItems().size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "You need to select at least one row!", ButtonType.OK);
             alert.showAndWait();
 
             return false;
@@ -260,31 +256,31 @@ public class Admin_ManageManagerController implements Initializable {
 
     public void getRowDetails() {
         try {
-            TablePosition pos = managerDetailsTable.getSelectionModel().getSelectedCells().get(0);
+            TablePosition pos = employeeDetailsTable.getSelectionModel().getSelectedCells().get(0);
             int row = pos.getRow();
 
-            Manager_Model item = managerDetailsTable.getItems().get(row);
-            int mngID = item.getManagerID();
+            EmployeeModel item = employeeDetailsTable.getItems().get(row);
+            int employeeID = item.getEmployeeID();
             //System.out.println("admin id: " + adminID);
             connection = conn.connect();
             statement = connection.createStatement();
 
-            String sql = "Select * from manager where managerId=" + mngID + ";";
+            String sql = "Select * from employee where employeeId=" + employeeID + ";";
             //String sql = "Select * from admin where adminId=1;";
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                ManagerFName.setText(rs.getString("managerFirstName"));
-                ManagerLName.setText(rs.getString("managerLastName"));
-                ManagerId.setText(String.valueOf(rs.getInt("managerId")));
+                employeeFName.setText(rs.getString("employeeFirstName"));
+                employeeLName.setText(rs.getString("employeeLastName"));
+                employeeId.setText(String.valueOf(rs.getInt("employeeId")));
                 //addAdmintfLastName.setText(rs.getString("adminLastName"));
-                ManagerEmailId.setText(rs.getString("managerEmailId"));
-                ManagerPassword.setText(rs.getString("managerPassword"));
-                ManagerUserName.setText(rs.getString("managerUserName"));
-                ManagerCity.setText(rs.getString("managerCity"));
-                ManagerDeptBox.setValue(rs.getString("managerDepartment"));
-                
+                employeeEmailId.setText(rs.getString("employeeEmailId"));
+                employeePassword.setText(rs.getString("employeePassword"));
+                employeeUserName.setText(rs.getString("employeeUserName"));
+                employeeCity.setText(rs.getString("employeeCity"));
+                employeeDeptBox.setValue(rs.getString("employeeDEpartment"));
+                employeeManagerBox.setValue(rs.getString("employeeManager"));
             }
             connection.close();
             statement.close();
@@ -296,14 +292,14 @@ public class Admin_ManageManagerController implements Initializable {
     }
 
     @FXML
-    private void editManagerButtonOnClick(Event event) {
+    private void editEmployeeButtonOnClick(Event event) {
 
         try {
 
             if (ifRowSelected()) {
                 getRowDetails();
                 setAllFieldEnableOnClick();
-                savemanagerButton.setDisable(true);
+                saveEmployeeButton.setDisable(true);
                 saveChangesButton.setDisable(false);
             }
 
@@ -313,18 +309,18 @@ public class Admin_ManageManagerController implements Initializable {
     }
 
     @FXML
-    private void deleteManagerButtonOnClick(Event event) {
+    private void deleteEmployeeButtonOnClick(Event event) {
         if (ifRowSelected()) {
             try {
-                TablePosition pos = managerDetailsTable.getSelectionModel().getSelectedCells().get(0);
+                TablePosition pos = employeeDetailsTable.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
-                Manager_Model item = managerDetailsTable.getItems().get(row);
-                int mngID = item.getManagerID();
+                EmployeeModel item = employeeDetailsTable.getItems().get(row);
+                int employeeID = item.getEmployeeID();
                 //System.out.println("admin id: " + adminID);
                 connection = conn.connect();
                 statement = connection.createStatement();
                 
-                String sql = "delete from manager where managerId=" + mngID + ";";
+                String sql = "delete from employee where employeeId=" + employeeID + ";";
                 statement.executeUpdate(sql);
                 refreshEmployeeButtonOnClick(event);
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Employee Deleted from System!", ButtonType.OK);
@@ -341,20 +337,18 @@ public class Admin_ManageManagerController implements Initializable {
         if (ifRowSelected()) {
             getRowDetails();
             setAllFieldDisableOnClick();
-            ManagerLabel.setDisable(true);
+            saveEmployeeButton.setDisable(true);
         }
 
     }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	mngidDetailtable.setCellValueFactory(new PropertyValueFactory<Manager_Model, Integer>("mngID"));
-    	fnameDetailtable.setCellValueFactory(new PropertyValueFactory<Manager_Model, String>("FName"));
-    	lnameDetailtable.setCellValueFactory(new PropertyValueFactory<Manager_Model, String>("LName"));
-    	deptDetailtable.setCellValueFactory(new PropertyValueFactory<Manager_Model, String>("department"));
-        ManagerDeptBox.setItems(FXCollections.observableArrayList(
-                "Dept 1", "Dept 2",
-                new Separator(), "Dept 3", "Dept 4"));
+        empidDetail.setCellValueFactory(new PropertyValueFactory<EmployeeModel, Integer>("employeeID"));
+        fnameDetail.setCellValueFactory(new PropertyValueFactory<EmployeeModel, String>("FName"));
+        lnameDetail.setCellValueFactory(new PropertyValueFactory<EmployeeModel, String>("LName"));
+        deptDetail.setCellValueFactory(new PropertyValueFactory<EmployeeModel, String>("department"));
+        managerDetail.setCellValueFactory(new PropertyValueFactory<EmployeeModel, String>("manager"));
         try {
             buildData();
         } catch (Exception e) {
@@ -368,13 +362,13 @@ public class Admin_ManageManagerController implements Initializable {
                 connection = conn.connect();
                 statement = connection.createStatement();
 
-                statement.executeUpdate("update manager set managerFirstName ='" + ManagerFName.getText() + "',managerLastName='" + ManagerLName.getText() + "',managerUserName ='" + ManagerUserName.getText() + "',managerPassword ='" + ManagerPassword.getText() + "',managerEmailId ='" + ManagerEmailId.getText() + "',managerCity='" + ManagerCity.getText() +"',managerDepartment='" + ManagerDeptBox.getValue() +"' where managerId=" + ManagerId.getText() + ";");
+                statement.executeUpdate("update employee set employeeFirstName ='" + employeeFName.getText() + "',employeeLastName='" + employeeLName.getText() + "',employeeUserName ='" + employeeUserName.getText() + "',employeePassword ='" + employeePassword.getText() + "',employeeEmailId ='" + employeeEmailId.getText() + "',employeeCity='" + employeeCity.getText() +"',employeeDepartment='" + employeeDeptBox.getValue() +"',employeeManager='" + employeeManagerBox.getValue() + "' where employeeId=" + employeeId.getText() + ";");
                 //System.out.println("Your Details have been updated successfully!");
-                ManagerLabel.setTextFill(Color.web("green"));
-                ManagerLabel.setText("Details updated successfully!");
+                employeeLabel.setTextFill(Color.web("green"));
+                employeeLabel.setText("Details updated successfully!");
                 setAllFieldDisableOnClick();
                 setAllFieldClearOnClick();
-                savemanagerButton.setDisable(false);
+                saveEmployeeButton.setDisable(false);
                 refreshEmployeeButtonOnClick(event);
                 saveChangesButton.setDisable(true);
                 connection.close();
@@ -386,7 +380,7 @@ public class Admin_ManageManagerController implements Initializable {
 
     }
     
-    private ObservableList<Manager_Model> data;
+    private ObservableList<EmployeeModel> data;
 
     public void buildData() {
         try {
@@ -394,21 +388,22 @@ public class Admin_ManageManagerController implements Initializable {
             connection = conn.connect();
             statement = connection.createStatement();
 
-            String SQL = "Select * from manager;";
+            String SQL = "Select * from employee;";
 
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                Manager_Model cm = new Manager_Model();
+                EmployeeModel cm = new EmployeeModel();
                 //System.out.println("rs id"+rs.getInt("adminId"));
-                cm.mngID.set(rs.getInt("managerId"));
-                cm.FName.set(rs.getString("managerFirstName"));
-                cm.LName.set(rs.getString("managerLastName"));
-                cm.department.set(rs.getString("managerDepartment"));
+                cm.employeeID.set(rs.getInt("employeeId"));
+                cm.FName.set(rs.getString("employeeFirstName"));
+                cm.LName.set(rs.getString("employeeLastName"));
+                cm.department.set(rs.getString("employeeDepartment"));
+                cm.manager.set(rs.getString("employeeManager"));
                 data.add(cm);
             }
 
-            managerDetailsTable.setItems(data);
+            employeeDetailsTable.setItems(data);
             connection.close();
             statement.close();
 
